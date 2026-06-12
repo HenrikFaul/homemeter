@@ -1,0 +1,19 @@
+{
+  "name": "industrial-maintenance-command-center",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "Industrial Maintenance Command Center - Cross-platform desktop application for Windows and macOS, optimized for large monitors.",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  }
+}

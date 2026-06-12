@@ -1,0 +1,153 @@
+{
+  "stack": "node-ts",
+  "briefPath": "C:\\Work\\Homemeter\\Desktop app brief_detailed.md",
+  "tasks": [
+    {
+      "rel": "package.json",
+      "path": "C:/Work/Homemeter/node-ts/package.json",
+      "purpose": "Defines project metadata, sets \"type\": \"commonjs\", lists express dependency and devDependencies like typescript with correct versions per stack constraints.",
+      "done": true,
+      "attempts": 2
+    },
+    {
+      "rel": "tsconfig.json",
+      "path": "C:/Work/Homemeter/node-ts/tsconfig.json",
+      "purpose": "Configures TypeScript compiler options including strict: false, noImplicitAny: false to allow loose typing as requested in brief instructions.",
+      "done": true,
+      "attempts": 2
+    },
+    {
+      "rel": "src/db/schema.sql",
+      "path": "C:/Work/Homemeter/node-ts/src/db/schema.sql",
+      "purpose": "Contains SQL DDL statements defining tables for assets, work_orders, spare_parts, users with SQLite syntax constraints like INTEGER PRIMARY KEY AUTOINCREMENT.",
+      "done": true,
+      "attempts": 1
+    },
+    {
+      "rel": "src/db/db.ts",
+      "path": "C:/Work/Homemeter/node-ts/src/db/db.ts",
+      "purpose": "Initializes DatabaseSync instance using node:sqlite module, creates data directory recursively, executes schema creation via raw strings to avoid file reading logic errors.",
+      "done": true,
+      "attempts": 1
+    },
+    {
+      "rel": "src/models/Asset.ts",
+      "path": "C:/Work/Homemeter/node-ts/src/models/Asset.ts",
+      "purpose": "Defines TypeScript interface for Asset entity including status, location, criticality, and sensor health indicators used across services.",
+      "done": true,
+      "attempts": 1
+    },
+    {
+      "rel": "src/models/User.ts",
+      "path": "C:/Work/Homemeter/node-ts/src/models/User.ts",
+      "purpose": "Defines TypeScript interface for User role system covering operator, technician, supervisor roles with permissions flags as per core user roles requirement.",
+      "done": true,
+      "attempts": 1
+    },
+    {
+      "rel": "src/models/WorkOrder.ts",
+      "path": "C:/Work/Homemeter/node-ts/src/models/WorkOrder.ts",
+      "purpose": "Defines TypeScript interface for Work Order tracking ID, asset linkage, SLA timers, priority logic derived from composite factors like downtime duration.",
+      "done": true,
+      "attempts": 1
+    },
+    {
+      "rel": "src/models/SparePart.ts",
+      "path": "C:/Work/Homemeter/node-ts/src/models/SparePart.ts",
+      "purpose": "Defines TypeScript interface for Spare Parts inventory including stock levels, reorder points, lead times, and compatibility data linked to assets.",
+      "done": true,
+      "attempts": 1
+    },
+    {
+      "rel": "src/services/assetsService.ts",
+      "path": "C:/Work/Homemeter/node-ts/src/services/assetsService.ts",
+      "purpose": "Implements CRUD operations for assets using db.prepare methods with strict type casting from models directory via relative imports.",
+      "done": true,
+      "attempts": 2
+    },
+    {
+      "rel": "src/services/workOrdersService.ts",
+      "path": "C:/Work/Homemeter/node-ts/src/services/workOrdersService.ts",
+      "purpose": "Handles work order logic such as SLA countdowns, priority recalculation based on asset criticality, and assignment routing to technicians. — KÖTELEZŐ exportok (más fájlok PONTOSAN ezeket importálják, ne nevezd át őket): createWorkOrder, getOpenWorkOrders, updateWorkOrder, closeWorkOrder, assignUserToWorkOrder, getWorkOrdersByStatus",
+      "done": true,
+      "attempts": 4
+    },
+    {
+      "rel": "src/services/partsService.ts",
+      "path": "C:/Work/Homemeter/node-ts/src/services/partsService.ts",
+      "purpose": "Manages inventory checks for stockout risks, part availability validation against open work orders, and consumption tracking via db.run with integer booleans.",
+      "done": true,
+      "attempts": 1
+    },
+    {
+      "rel": "src/routes/api/healthRoute.ts",
+      "path": "C:/Work/Homemeter/node-ts/src/routes/api/healthRoute.ts",
+      "purpose": "Express route handler mounted at /api/health endpoint returning system status including connectivity state and sync queue info from bottom utility strip data.",
+      "done": true,
+      "attempts": 3
+    },
+    {
+      "rel": "src/routes/api/assetsRoute.ts",
+      "path": "C:/Work/Homemeter/node-ts/src/routes/api/assetsRoute.ts",
+      "purpose": "Express route handlers for GET list or single asset, POST create logic using assetsService with query params handling as per LISTA GET-végpont rules.",
+      "done": true,
+      "attempts": 3
+    },
+    {
+      "rel": "src/routes/api/workOrdersRoute.ts",
+      "path": "C:/Work/Homemeter/node-ts/src/routes/api/workOrdersRoute.ts",
+      "purpose": "Express route handlers mounted at /api/work_orders endpoint for creating, updating, and listing maintenance tasks with filters like severity or status. — KÖTELEZŐ exportok (más fájlok PONTOSAN ezeket importálják, ne nevezd át őket): workOrdersRoutes",
+      "done": false,
+      "attempts": 12
+    },
+    {
+      "rel": "src/routes/api/partsRoute.ts",
+      "path": "C:/Work/Homemeter/node-ts/src/routes/api/partsRoute.ts",
+      "purpose": "Express route handlers mounted at /api/spare_parts endpoint to handle inventory queries and stock movement logging using partsService functions.",
+      "done": true,
+      "attempts": 1
+    },
+    {
+      "rel": "src/server.ts",
+      "path": "C:/Work/Homemeter/node-ts/src/server.ts",
+      "purpose": "Main entry point importing express, configuring middleware for json parser and static file serving for public folder, mounting API routes via barrel import or direct use.",
+      "done": true,
+      "attempts": 2
+    },
+    {
+      "rel": "src/routes/index.ts",
+      "path": "C:/Work/Homemeter/node-ts/src/routes/index.ts",
+      "purpose": "Barrel export file that exports named route handlers to be imported by server.ts ensuring clean separation of concerns as per dependency order rules.",
+      "done": true,
+      "attempts": 2
+    },
+    {
+      "rel": "public/index.html",
+      "path": "C:/Work/Homemeter/node-ts/public/index.html",
+      "purpose": "Static HTML shell containing the dashboard layout with left panel rail for live equipment tree, center workspace area for machine overview and right action sidebar.",
+      "done": true,
+      "attempts": 1
+    },
+    {
+      "rel": "public/style.css",
+      "path": "C:/Work/Homemeter/node-ts/public/style.css",
+      "purpose": "Industrial-grade CSS styles defining dark mode high-contrast themes, grid layouts for multi-pane workflows, and responsive density controls for large monitors.",
+      "done": true,
+      "attempts": 1
+    },
+    {
+      "rel": "public/app.js",
+      "path": "C:/Work/Homemeter/node-ts/public/app.js",
+      "purpose": "Frontend application logic handling fetch requests to API endpoints like /api/assets/, rendering data tables with keyboard-first navigation support.",
+      "done": true,
+      "attempts": 1
+    },
+    {
+      "rel": "tests/basic.test.ts",
+      "path": "C:/Work/Homemeter/node-ts/tests/basic.test.ts",
+      "purpose": "Simple Node assert test verifying database connection success via db.exec check or basic API response structure validation without Jest dependencies.",
+      "done": true,
+      "attempts": 2
+    }
+  ]
+}

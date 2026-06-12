@@ -1,0 +1,106 @@
+/* ============================================================
+   HENRIS Forge design-alap — token-alapú, sötét/világos, reszponzív
+   A komponensek KIZÁRÓLAG ezekre az osztályokra építenek.
+   ============================================================ */
+:root{
+  --bg:#0d1117; --bg-2:#161b22; --panel:#1c2128; --line:#30363d;
+  --fg:#e6edf3; --muted:#8b949e;
+  --primary:#4493f8; --primary-fg:#ffffff;
+  --ok:#3fb950; --warn:#d29922; --err:#f85149;
+  --radius:10px; --radius-sm:6px;
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px;
+  --font:system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --shadow:0 1px 3px rgba(0,0,0,.4);
+}
+@media (prefers-color-scheme: light){
+  :root{ --bg:#f6f8fa; --bg-2:#ffffff; --panel:#ffffff; --line:#d0d7de; --fg:#1f2328; --muted:#656d76; --shadow:0 1px 3px rgba(31,35,40,.12); }
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+/* ---- Vázszerkezet ---- */
+.app-header{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:var(--sp-4);flex-wrap:wrap;
+  padding:var(--sp-3) var(--sp-5);background:var(--bg-2);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.app-header h1{margin:0;font-size:18px;font-weight:650;letter-spacing:.2px}
+.app-main{max-width:1200px;margin:0 auto;padding:var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-5)}
+.section{display:flex;flex-direction:column;gap:var(--sp-3)}
+.section > h2{margin:0;font-size:15px;font-weight:650;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.toolbar{display:flex;gap:var(--sp-2);align-items:center;flex-wrap:wrap}
+.spacer{flex:1}
+
+/* ---- Kártyák, rács ---- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--sp-4)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:var(--sp-4);
+  display:flex;flex-direction:column;gap:var(--sp-2);box-shadow:var(--shadow)}
+.card h3{margin:0;font-size:15px;font-weight:650}
+.card .meta{color:var(--muted);font-size:13px}
+.kv{display:flex;justify-content:space-between;gap:var(--sp-3);font-size:14px}
+.kv b{font-weight:600}
+.stat{display:flex;flex-direction:column;gap:2px;padding:var(--sp-3) var(--sp-4)}
+.stat .value{font-size:26px;font-weight:700;line-height:1.1}
+.stat .label{color:var(--muted);font-size:13px}
+
+/* ---- Jelvények, állapot ---- */
+.badge{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:999px;
+  font-size:12px;font-weight:600;border:1px solid var(--line);background:var(--bg-2);color:var(--fg);white-space:nowrap}
+.badge.ok{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 40%,transparent)}
+.badge.warn{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 40%,transparent)}
+.badge.err{color:var(--err);border-color:color-mix(in srgb,var(--err) 40%,transparent)}
+.badge .dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+.status-pill{padding:var(--sp-2) var(--sp-4);border-radius:var(--radius-sm);background:var(--panel);
+  border:1px solid var(--line);font-size:13px;color:var(--muted)}
+
+/* ---- Gombok ---- */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--radius-sm);
+  border:1px solid var(--line);background:var(--panel);color:var(--fg);font-size:14px;font-weight:550;
+  cursor:pointer;min-height:32px;transition:background .12s,border-color .12s}
+.btn:hover{border-color:var(--primary)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.primary{background:var(--primary);border-color:var(--primary);color:var(--primary-fg)}
+.btn.danger{background:transparent;border-color:var(--err);color:var(--err)}
+.btn.sm{padding:3px 10px;font-size:12.5px;min-height:26px}
+
+/* ---- Táblázat ---- */
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{padding:10px 14px;text-align:left;color:var(--muted);font-size:12px;text-transform:uppercase;
+  letter-spacing:.6px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 14px;border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:color-mix(in srgb,var(--primary) 6%,transparent)}
+
+/* ---- Űrlapok ---- */
+.form{display:flex;flex-direction:column;gap:var(--sp-3);max-width:520px}
+.form .row{display:flex;gap:var(--sp-3);flex-wrap:wrap}
+label.field{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted);flex:1;min-width:160px}
+input,select,textarea{padding:8px 10px;border-radius:var(--radius-sm);border:1px solid var(--line);
+  background:var(--bg-2);color:var(--fg);font-family:var(--font);font-size:14px;min-height:34px}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);outline:none}
+.field-error{color:var(--err);font-size:12.5px}
+
+/* ---- Állapot-nézetek (loading / empty / error) ---- */
+.state{display:flex;flex-direction:column;align-items:center;gap:var(--sp-2);
+  padding:var(--sp-6);color:var(--muted);text-align:center;border:1px dashed var(--line);border-radius:var(--radius)}
+.state .icon{font-size:28px}
+.skeleton{position:relative;overflow:hidden;background:var(--panel);border-radius:var(--radius);min-height:72px}
+.skeleton::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--fg) 7%,transparent),transparent);
+  animation:shimmer 1.4s infinite}
+@keyframes shimmer{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.error-banner{padding:var(--sp-3) var(--sp-4);border:1px solid var(--err);border-radius:var(--radius-sm);
+  background:color-mix(in srgb,var(--err) 8%,transparent);color:var(--err);font-size:14px}
+
+/* ---- Grafikon-konténer ---- */
+.chart-box{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:var(--sp-4);width:100%}
+.chart-box canvas{display:block;width:100%!important;height:280px!important}
+
+/* ---- Reszponzív ---- */
+@media (max-width:720px){
+  .app-main{padding:var(--sp-3)}
+  .grid{grid-template-columns:1fr}
+  .app-header{padding:var(--sp-3)}
+}

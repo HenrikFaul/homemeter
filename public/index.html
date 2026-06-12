@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ipari Karbantartás Parancsközpont</title>
+    
+    <!-- Chart.js betöltése a grafikonokhoz -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+
+    <!-- Saját CSS fájlok referenciája (a public mappa alatt) -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body class="app-body dark-theme">
+
+    <!-- Felső sáv: Cím, státusz és felhasználó információk -->
+    <header class="app-header">
+        <div class="header-left">
+            <h1>Ipari Karbantartás Parancsközpont</h1>
+        </div>
+        
+        <!-- Spacer a középre igazításhoz vagy logikához, ha szükséges -->
+        <div class="spacer"></div>
+
+        <!-- Státusz jelvény: rendszer állapota (pl. online/offline) -->
+        <div id="system-status" class="status-pill ok">
+            <span class="dot"></span> Rendszer Online
+        </div>
+    </header>
+
+    <!-- Fő tartalom terület -->
+    <main class="app-main grid-layout">
+        
+        <!-- Bal panel: Eszköz fastruktúra / Live Equipment Tree -->
+        <section class="panel-left section" aria-label="Eszközök listája">
+            <h2>Eszközök Áttekintése</h2>
+            
+            <!-- Töltés közbeni skeletontartalom (Skeleton) -->
+            <div id="assets-skeleton-container" class="skeleton-list"></div>
+
+            <!-- Üres állapot vagy adatok megjelenítése után a lista helye -->
+            <div id="asset-tree-content">
+                <!-- Itt renderelődik az eszközfa JS-ből (insertAdjacentHTML) -->
+            </div>
+
+             <!-- Hiba banner, ha nincs kapcsolat -->
+             <div id="assets-error-banner" class="error-banner hidden"></div>
+        </section>
+
+
+        <!-- Középső terület: Operatív nézet és részletek -->
+        <section class="panel-center section">
+            <h2>Részletes Megfigyelés</h2>
+
+            <!-- KPI kártyák rácsa (Stat Cards) -->
+            <div id="dashboard-stats" class="grid grid-cols-4 gap-4 mb-6">
+                <!-- Stat card 1: Aktív hibajegyek száma -->
+                <div class="card stat">
+                    <div class="value" id="stat-active-incidents">0</div>
+                    <div class="label">Aktív Hibajegy (SLA)</div>
+                </div>
+
+                 <!-- Stat card 2: Kritikus eszközök száma -->
+                 <div class="card stat warn">
+                    <div class="value" id="stat-critical-assets">0</div>
+                    <div class="label">Kritikus Eszköz (Offline)</div>
+                </div>
+
+                 <!-- Stat card 3: Alkatrész hiányok -->
+                 <div class="card stat warn">
+                    <div class="value" id="stat-parts-low-stock">0</div>
+                    <div class="label">Alacsony Raktárkészlet</div>
+                </div>
+
+                 <!-- Stat card 4: Teljesített feladatok -->
+                 <div class="card stat ok">
+                    <div class="value" id="stat-completed-today">0</div>
+                    <div class="label">Teljesítve Ma</div>
+                </div>
+            </div>
+
+            <!-- Fő eszköz részlet nézet -->
+            <div id="asset-detail-view" class="card asset-card hidden">
+                <h3>Eszköz: <span id="detail-asset-name"></span></h3>
+                
+                <div class="kv-row mb-4">
+                    <span>Helyszín:</span><b id="detail-location"></b>
+                </div>
+
+                <!-- Grafikon tartomány -->
+                <div class="chart-box" style="height: 250px;">
+                    <canvas id="asset-health-chart"></canvas>
+                </div>
+
+                 <!-- Eszköz állapot badge-je -->
+                 <div class="kv-row mt-4">
+                     <span>Eszköz Állapota:</span><b id="detail-status-badge" class="badge ok"><span class="dot"></span>Fut</b>
+                </div>
+
+            </div>
+
+             <!-- Üres állapot: Nincs kiválasztott eszköz -->
+             <div id="asset-empty-state" class="state hidden">
+                 <div class="icon">📭</div>
+                 <div>Egy eszközt sem választottál ki.</div>
+            </div>
+
+        </section>
+
+
+        <!-- Jobb panel: Feladatok és gyorsakciók -->
+        <section class="panel-right section" aria-label="Aktív feladatok">
+            
+            <h2>Aktív Hibajegyek</h2>
+            
+            <!-- Töltés skeletontartalom jobb oldalon is lehetne, de egyszerűsítve a listát -->
+             <div id="work-orders-list-container" class="list-group skeleton"></div>
+
+            <!-- Üres állapot: Nincs nyitott hibajegy -->
+            <div id="wo-empty-state" class="state hidden">
+                <div class="icon">✅</div>
+                <div>Nincsenek aktív beavatkozások.</div>
+            </div>
+
+             <!-- Hiba banner jobb oldalon is lehetne, de a fő hiba az assets-ben van -->
+
+
+        </section>
+
+    </main>
+
+    <!-- Alapvető JavaScript logika betöltése (Vanilla JS) -->
+    <script src="./app.js"></script>
+</body>
+</html>
